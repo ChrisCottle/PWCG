@@ -11,6 +11,7 @@
 		}
 	</style>
 	<script src="../pixi.js-master/bin/pixi.dev.js"></script>
+	<script src="../greensock.js/src/uncompressed/TweenMax.js"></script>
 </head>
 
 <body>
@@ -22,10 +23,9 @@
 		var renderer = PIXI.autoDetectRenderer(xWidth,yHeight);
 		var handSize = 9.0; //floating point for hand rotation calculation
 		//hand init and vars
-		var myHand = [];
-		var handSpacing = 30;
-		var handRotationFactor = 0.1;
-		var handRotationFactor = 0.1;
+		var myHand = []; // cards in this player's hand
+		var handSpacing = 30; //space between cards in hand before rotation
+		var handRotationFactor = 0.1; //rotation amount seems to be 10x more than intended
 		var cardHighlightBumpAmt = yHeight/15;
 		
 		//define the place on the screen where the player's "hand is located"
@@ -38,6 +38,8 @@
 		stage.setInteractive = true;
 		document.body.appendChild(renderer.view);
 		requestAnimFrame(animate);
+		
+		
 		
 		for(var i = 0; i<handSize; i++){
 			var card = new PIXI.Sprite(uCardTex);
@@ -67,16 +69,21 @@
 				this.position.y += cardHighlightBumpAmt;
 				this.position.x += this.rotation*-cardHighlightBumpAmt;
 			};
+			card.mousedown = function(data){
+				var item = this;
+				TweenMax.to(item, 100, {tint:0});
+				//format for tween is, object, duration, field:valueTo
+			};
 			
 			stage.addChild(card);
 		}
 		
-		
 		function animate(){
 			requestAnimFrame(animate);
 			
-			//card.rotation +=0.01;
 			
+			
+			//card.rotation +=0.01;
 			renderer.render(stage);
 		}
 		
