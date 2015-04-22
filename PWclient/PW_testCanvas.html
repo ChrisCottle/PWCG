@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+	<title>Programmer Wars Test Canvas</title>
+	<style>
+		body{
+			margin: 0;
+			padding: 0;
+			background-color: #000000;
+		}
+	</style>
+	<script src="../pixi.js-master/bin/pixi.dev.js"></script>
+</head>
+
+<body>
+	<script>
+		//stage init
+		var xWidth = window.innerWidth;
+		var yHeight = window.innerHeight;
+		var stage = new PIXI.Stage(0xe5e0c9);
+		var renderer = PIXI.autoDetectRenderer(xWidth,yHeight);
+		var handSize = 9.0; //floating point for hand rotation calculation
+		//hand init and vars
+		var myHand = [];
+		var handSpacing = 30;
+		var handRotationFactor = 0.1;
+		var handRotationFactor = 0.1;
+		var cardHighlightBumpAmt = yHeight/15;
+		
+		//define the place on the screen where the player's "hand is located"
+		var handAnchorX = xWidth/2;
+		var handAnchorY = (yHeight/3)*2.7;
+		//define card properties
+		var uCardTex = PIXI.Texture.fromImage("UnknownCard.png");
+		
+		
+		stage.setInteractive = true;
+		document.body.appendChild(renderer.view);
+		requestAnimFrame(animate);
+		
+		for(var i = 0; i<handSize; i++){
+			var card = new PIXI.Sprite(uCardTex);
+			card.buttonMode = true;
+			card.interactive = true;
+			//sets the rot point for the card to be the bottom middle
+			card.anchor.x = 0.5;
+			card.anchor.y = 1;
+			//base put the card down where the hand position is, separate them by a certain amount
+			card.position.x = handAnchorX+(i-(handSize/2))+(handSpacing*i); //cards are at the xPos provided by handAnchorX. handSize/2 defines the card that will be on that position, each card before that card is progressively further left, etc...
+			card.position.y = handAnchorY;
+			
+			//cards should be rotated in a fan shape 
+			//ie: left and right most cards are rotated most extreme, middle card is verticle
+			//handSize/2 should be 0 rotation, so whatever distance this card from the middle is should be its rotation
+			card.rotation = (i-(handSize/2))*handRotationFactor;
+
+			
+			//card funcs
+			card.mouseover = function(data){
+				this.isOver = true;
+				this.position.y -= cardHighlightBumpAmt;
+				this.position.x -= this.rotation*-cardHighlightBumpAmt;
+			};
+			card.mouseout = function(data){
+				this.isOver = false;
+				this.position.y += cardHighlightBumpAmt;
+				this.position.x += this.rotation*-cardHighlightBumpAmt;
+			};
+			
+			stage.addChild(card);
+		}
+		
+		
+		function animate(){
+			requestAnimFrame(animate);
+			
+			//card.rotation +=0.01;
+			
+			renderer.render(stage);
+		}
+		
+	</script>
+</body>
+
+</html>
