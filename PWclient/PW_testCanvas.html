@@ -13,6 +13,7 @@
 	<script src="../pixi.js-master/bin/pixi.dev.js"></script>
 	<script src="../greensock.js/src/uncompressed/TweenMax.js"></script>
 	<script src="Game.js"></script>
+	<script src="Board.js"></script>
 	<script src="Deck.js"></script>
 	<script src="Hand.js"></script>
 	<script src="Card.js"></script>
@@ -21,12 +22,13 @@
 	
 	
 	<script>
-	
+		var currentGame = new Game(window.innerWidth, innerHeight);
 		//stage init
-		var xWidth = window.innerWidth;
+		var xWidth = currentGame.innerWidth;
 		var yHeight = window.innerHeight;
-		var stage = new PIXI.Stage(0xe5e0c9);
-		var renderer = PIXI.autoDetectRenderer(xWidth,yHeight);
+		var stage = currentGame.stage;
+		var renderer = currentGame.renderer;
+		
 		var handSize = 9.0; //floating point for hand rotation calculation
 		var cardMovementTimer = 0.4; //how fast to slide cards around
 		//hand init and vars
