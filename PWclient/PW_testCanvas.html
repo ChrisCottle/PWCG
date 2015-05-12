@@ -23,6 +23,7 @@
 	
 	<script>
 		var currentGame = new Game(window.innerWidth, innerHeight);
+		currentGame.doStep();
 		//stage init
 		var xWidth = currentGame.innerWidth;
 		var yHeight = window.innerHeight;
@@ -46,14 +47,9 @@
 		//define anchor for selected cards
 		var selectionAnchorX = xWidth/2;
 		var selectionAnchorY = yHeight/1.5;
-		//define card properties
-		var uCardTex = PIXI.Texture.fromImage("UnknownCard.png");
 		
-		
-		stage.setInteractive = true;
-		document.body.appendChild(renderer.view);
+		//constant animation frame ()
 		requestAnimFrame(animate);
-		
 		
 		//hand loop (creation, selection, placement)
 		for(var i = 0; i<handSize; i++){
@@ -132,6 +128,7 @@
 			};
 			
 			stage.addChild(card);
+		
 		}
 		
 		function animate(){
