@@ -11,7 +11,7 @@ function Game(windowWidth, windowHeight){
 	this.maxSelectedCards = 1;
 	this.numSelectedCards = 0;
 	this.cardMovementTimer = 1.0;
-	
+
 	//board needs dimensions of screen to determine render bounds
 	this.currentBoard = new Board(windowWidth,windowHeight);
 	
