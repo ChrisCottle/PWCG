@@ -5,6 +5,7 @@ function Card(texturePath, width, xPos, yPos, rot){
 	this.card = new PIXI.Sprite(this.texture);
 	
 	//rotation origin and dimensions
+	//card height is determined by its width, so only width is passed
 	this.card.width = width;
 	this.card.height = width*1.5;
 	this.card.anchor.x = 0.5;

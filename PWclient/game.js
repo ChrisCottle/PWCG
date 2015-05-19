@@ -10,11 +10,10 @@ function Game(windowWidth, windowHeight){
 	//rules vars
 	this.maxSelectedCards = 1;
 	this.numSelectedCards = 0;
-	this.cardMovementTimer = 1.0;
+	this.cardMovementTimer = 0.3;
 
 	//board needs dimensions of screen to determine render bounds
 	this.currentBoard = new Board(windowWidth,windowHeight);
-	
 	//push to window
 	document.body.appendChild(this.renderer.view);
 }

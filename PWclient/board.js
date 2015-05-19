@@ -1,11 +1,14 @@
 function Board(innerWidth,innerHeight){
 	//board needs: Drawpile, hand, oppenent hand, gameState
+	this.selectionAnchorX = innerWidth/2;
+	this.selectionAnchorY = innerHeight/1.5;
+	//add your hand to this board
 	
-	//this will have to use the deck's hand spacing;
-	this.handAnchorX = (innerWidth/2)-(handSpacing*handSize)/2;
-	this.handAnchorY = (yHeight/3)*2.7;
-	
-	//location of selected card ofr inspection (relative middle of the screen)
-	var selectionAnchorX = xWidth/2;
-	var selectionAnchorY = yHeight/1.5;
+}
+
+//define methods for each instance of a Game
+Board.prototype = {
+	constructor: Board, 
+	buildSpace:function(){
+	}
 }
